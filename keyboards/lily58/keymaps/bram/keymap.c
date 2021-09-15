@@ -10,39 +10,6 @@ enum layer_number {
   _ADJUST,
 };
 
-// Tap Dance declarations
-enum {
-    Q_F1,
-    W_F2,
-    E_F3,
-    R_F4,
-    T_F5,
-    A_F6,
-    S_F7,
-    D_F8,
-    F_F9,
-    G_F10,
-    V_F11,
-    B_F12,
-};
-
-// Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for Escape, twice for Caps Lock
-    [Q_F1] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_F1),
-    [W_F2] = ACTION_TAP_DANCE_DOUBLE(KC_W, KC_F2),
-    [E_F3] = ACTION_TAP_DANCE_DOUBLE(KC_E, KC_F3),
-    [R_F4] = ACTION_TAP_DANCE_DOUBLE(KC_R, KC_F4),
-    [T_F5] = ACTION_TAP_DANCE_DOUBLE(KC_T, KC_F5),
-    [A_F6] = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_F6),
-    [S_F7] = ACTION_TAP_DANCE_DOUBLE(KC_S, KC_F7),
-    [D_F8] = ACTION_TAP_DANCE_DOUBLE(KC_D, KC_F8),
-    [F_F9] = ACTION_TAP_DANCE_DOUBLE(KC_F, KC_F9),
-    [G_F10] = ACTION_TAP_DANCE_DOUBLE(KC_G, KC_F10),
-    [V_F11] = ACTION_TAP_DANCE_DOUBLE(KC_V, KC_F11),
-    [B_F12] = ACTION_TAP_DANCE_DOUBLE(KC_B, KC_F12),
-};
-
 enum custom_keycodes {
     TILDE = SAFE_RANGE,
     DIE_U, //u con dieresis
@@ -54,6 +21,7 @@ enum custom_keycodes {
 #define L_SYMBOLS LT(_SYMBOLS, KC_SPC)
 #define L_MOVEMENT LT(_MOVEMENT, KC_SPC)
 #define L_FUNCTIONS LT(_FUNCTIONS, KC_DEL)
+#define L_FUNC LT(_FUNCTIONS, KC_TAB)
 #define COPY RCTL(KC_C)
 #define CUT RCTL(KC_X)
 #define PASTE RCTL(KC_V)
@@ -80,11 +48,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
  [_QWERTY] = LAYOUT( \
   KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV, \
-  KC_TAB,   TD(Q_F1),TD(W_F2),TD(E_F3),TD(R_F4),TD(T_F5),                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS, \
-  KC_LCTRL, TD(A_F6),   TD(S_F7),    TD(D_F8),    TD(F_F9),    TD(G_F10),                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LSFT,  KC_Z,   KC_X,  KC_C,TD(V_F11), TD(B_F12), KC_LBRC,  KC_RBRC,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, \
+  L_FUNC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS, \
+  KC_LCTRL, KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_LBRC,  KC_RBRC,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, \
                         KC_LALT, KC_LGUI, L_MOVEMENT, KC_BSPC, KC_ENT, L_SYMBOLS, TILDE, L_FUNCTIONS \
-),
+ ),
 /* SYMBOLS
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
