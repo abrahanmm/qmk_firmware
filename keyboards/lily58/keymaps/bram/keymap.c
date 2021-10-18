@@ -22,6 +22,7 @@ enum custom_keycodes {
 #define L_MOVEMENT LT(_MOVEMENT, KC_SPC)
 #define L_FUNCTIONS LT(_FUNCTIONS, KC_DEL)
 #define L_FUNC LT(_FUNCTIONS, KC_TAB)
+#define B_FUNC LT(_FUNCTIONS, KC_BSPC)
 #define COPY RCTL(KC_C)
 #define CUT RCTL(KC_X)
 #define PASTE RCTL(KC_V)
@@ -47,21 +48,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                  `----------------------------'            '--------------------------------'
  */
  [_QWERTY] = LAYOUT( \
-  KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV, \
-  L_FUNC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS, \
-  KC_LCTRL, KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_LBRC,  KC_RBRC,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, \
-                        KC_LALT, KC_LGUI, L_MOVEMENT, KC_BSPC, KC_ENT, L_SYMBOLS, TILDE, L_FUNCTIONS \
+  KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_GRV, \
+  L_FUNC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_QUOT, \
+  KC_LCTRL, KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  TILDE, \
+  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_BSPC,  KC_ENT,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, \
+                        KC_LALT, KC_LGUI, L_MOVEMENT, B_FUNC, KC_ENT, L_SYMBOLS, TILDE, L_FUNCTIONS \
  ),
 /* SYMBOLS
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |   €  |   (  |   )  |                    |   &  |   /  |   |  |   \  |      |      |
+ * |      |      |   #  |   €  |   (  |   )  |                    |   &  |   /  |   |  |   \  |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |   $  |      |   {  |   }  |-------.    ,-------|   !  |   =  |   _  |   -  |      |      |
+ * |      |   @  |   $  |   %  |   {  |   }  |-------.    ,-------|   !  |   =  |   >  |   -  |      |      |
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |      |      |   `  |   ^  |   #  |   %  |-------|    |-------|   *  |   +  |   @  |      |   ¿  |      |
+ * |      |      |   `  |   ^  |   [  |   ]  |-------|    |-------|   *  |   +  |   _  |      |   ¿  |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                 | LAlt | LGUI |MOVEMENT| /BackSP/        \Enter \  | SYMBOLS | ACCENT | DEL |
  *                 |      |      | space  |/      /          \      \ |  space  |        |     |
@@ -69,9 +70,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_SYMBOLS] = LAYOUT( \
   _______, _______, _______, _______, _______, _______,                   _______, _______,  _______, _______, _______, _______,\
-  _______, _______, _______,   EURO , KC_LPRN, KC_RPRN,                   KC_AMPR, KC_SLSH, KC_PIPE, KC_BSLASH, _______,_______, \
-  _______, _______,  KC_DLR, _______, KC_LCBR, KC_RCBR,                   KC_EXLM, KC_EQUAL,KC_UNDS, KC_MINS, _______, _______, \
-  KC_CAPS, _______,  KC_GRV, KC_CIRC, KC_HASH, KC_PERC, _______, _______, KC_ASTR, KC_PLUS, KC_AT, _______, INIT_QUES, KC_CAPS, \
+  _______, _______, KC_HASH,   EURO , KC_LPRN, KC_RPRN,                   KC_AMPR, KC_SLSH, KC_PIPE, KC_BSLASH, _______,_______, \
+  _______,   KC_AT,  KC_DLR, KC_PERC, KC_LCBR, KC_RCBR,                   KC_EXLM, KC_EQUAL,KC_RABK, KC_MINS, _______, _______, \
+  KC_CAPS, _______,  KC_GRV, KC_CIRC, KC_LBRC, KC_RABK, _______, _______, KC_ASTR, KC_PLUS, KC_UNDS, _______, INIT_QUES, _______, \
                              _______, _______, _______, _______, _______,  _______, _______, _______\
 ),
 /* MOVEMENT
@@ -93,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______,                     _______,   _______, _______, _______, _______, _______, \
   _______, _______, _______, KC_BSPC,  PASTE ,  KC_DEL,                     KC_PGUP,   KC_HOME,  KC_UP , KC_END, _______, _______, \
   _______, KC_RGUI, KC_RALT, KC_RSFT, KC_RCTRL, COPY  ,                     KC_PGDOWN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, \
-  KC_CAPS, _______, _______,   SAVE ,   CUT  ,  UNDO  ,  _______, _______,  _______,   _______, _______,  _______, _______, KC_CAPS, \
+  KC_CAPS, _______, _______,   SAVE ,   CUT  ,  UNDO  ,  _______, _______,  _______,   _______, _______,  _______, _______, _______, \
                              _______, _______, _______,  _______, _______,  _______,   _______, _______ \
 ),
 /* FUNCTIONS                                                            Mouse Wheel
@@ -115,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,\
   _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                   _______,   DIE_U, _______, _______, _______, _______, \
   _______,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,                   _______, _______,  DEF_VS, CLOSE , _______, _______, \
-  KC_CAPS, _______, _______, _______,  KC_F11,  KC_F12, _______,  UC_MOD, _______, _______, KC_LCTRL, KC_RALT, _______, KC_CAPS, \
+  KC_CAPS, KC_LCTRL, KC_RALT, KC_LSFT,  KC_F11,  KC_F12, _______,  UC_MOD, _______, _______, KC_LCTRL, KC_RALT, _______, _______, \
                              _______, _______, _______, _______, _______, _______, _______, _______\
 ),
 /* ADJUST
@@ -381,11 +382,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
   switch (keycode) {
     case INIT_QUES:
-      send_unicode_string("¿");
-      return false;
-      break;
+        if (record->event.pressed) {
+            send_unicode_string("¿");
+        }
+        return false;
+        break;
     case EURO:
-      send_unicode_string("€");
+        if (record->event.pressed) {
+            send_unicode_string("€");
+        }
       return false;
       break;
     case TILDE:
