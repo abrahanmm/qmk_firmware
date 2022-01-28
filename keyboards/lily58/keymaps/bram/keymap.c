@@ -7,6 +7,7 @@ enum layer_number {
   _SYMBOLS,
   _MOVEMENT,
   _FUNCTIONS,
+  _NUMBERS,
   _ADJUST,
 };
 
@@ -14,7 +15,9 @@ enum custom_keycodes {
     TILDE = SAFE_RANGE,
     DIE_U, //u con dieresis
     EURO,
-    INIT_QUES
+    INIT_QUES,
+    SELLINE,
+    DELLINE
 };
 
 // keys
@@ -23,12 +26,14 @@ enum custom_keycodes {
 #define L_FUNCTIONS LT(_FUNCTIONS, KC_DEL)
 #define L_FUNC LT(_FUNCTIONS, KC_TAB)
 #define B_FUNC LT(_FUNCTIONS, KC_BSPC)
+#define E_NUMB LT(_NUMBERS, KC_ENT)
 #define COPY RCTL(KC_C)
 #define CUT RCTL(KC_X)
 #define PASTE RCTL(KC_V)
 #define UNDO RCTL(KC_Z)
 #define SAVE RCTL(KC_S)
 #define CLOSE LALT(KC_F4)
+#define RELOAD RCTL(KC_F5)
 #define DEF_VS RCTL(KC_F12) // go to definition at visual studio
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -49,41 +54,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
  [_QWERTY] = LAYOUT( \
   KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_GRV, \
-  L_FUNC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_QUOT, \
+  KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_QUOT, \
   KC_LCTRL, KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  TILDE, \
-  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_BSPC,  KC_ENT,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, \
-                        KC_LALT, KC_LGUI, L_MOVEMENT, B_FUNC, KC_ENT, L_SYMBOLS, TILDE, L_FUNCTIONS \
+  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_BSPC,  KC_ENT,   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, \
+                    KC_LALT, KC_LGUI, L_MOVEMENT, B_FUNC, E_NUMB,    L_SYMBOLS, TILDE, KC_DEL \
  ),
 /* SYMBOLS
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |   #  |   €  |   (  |   )  |                    |   &  |   /  |   |  |   \  |      |      |
+ * |      |   ^  |   #  |   €  |   (  |   )  |                    |   &  |   /  |   |  |   \  |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |   @  |   $  |   %  |   {  |   }  |-------.    ,-------|   !  |   =  |   >  |   -  |      |      |
+ * |      |   @  |   $  |   %  |   {  |   }  |-------.    ,-------|   !  |   =  |   >  |   -  |   _  |      |
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |      |      |   `  |   ^  |   [  |   ]  |-------|    |-------|   *  |   +  |   _  |      |   ¿  |      |
+ * |      |   `  |   <  |   >  |   [  |   ]  |-------|    |-------|   *  |   +  |   _  |   _  |   ¿  |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                 | LAlt | LGUI |MOVEMENT| /BackSP/        \Enter \  | SYMBOLS | ACCENT | DEL |
  *                 |      |      | space  |/      /          \      \ |  space  |        |     |
  *                  `----------------------------'            '--------------------------------'
  */
 [_SYMBOLS] = LAYOUT( \
-  _______, _______, _______, _______, _______, _______,                   _______, _______,  _______, _______, _______, _______,\
-  _______, _______, KC_HASH,   EURO , KC_LPRN, KC_RPRN,                   KC_AMPR, KC_SLSH, KC_PIPE, KC_BSLASH, _______,_______, \
-  _______,   KC_AT,  KC_DLR, KC_PERC, KC_LCBR, KC_RCBR,                   KC_EXLM, KC_EQUAL,KC_RABK, KC_MINS, _______, _______, \
-  KC_CAPS, _______,  KC_GRV, KC_CIRC, KC_LBRC, KC_RABK, _______, _______, KC_ASTR, KC_PLUS, KC_UNDS, _______, INIT_QUES, _______, \
+  _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                   KC_CIRC, KC_AMPR,  KC_ASTR, KC_LPRN, KC_RPRN, _______,\
+  _______, KC_CIRC, KC_HASH,   EURO , KC_LPRN, KC_RPRN,                   KC_AMPR, KC_SLSH, KC_PIPE, KC_BSLASH, _______,_______, \
+  _______,   KC_AT,  KC_DLR, KC_PERC, KC_LCBR, KC_RCBR,                   KC_EXLM, KC_EQUAL,KC_RABK, KC_MINS, KC_UNDS, _______, \
+  KC_CAPS, KC_GRV,  KC_LABK, KC_RABK, KC_LBRC, KC_RBRC, _______, _______, KC_ASTR, KC_PLUS, KC_UNDS, KC_UNDS, INIT_QUES, _______, \
                              _______, _______, _______, _______, _______,  _______, _______, _______\
 ),
 /* MOVEMENT
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |BackSP|PASTE |  DEL |                    |PageUp| Home |  Up  |  End |      |      |
+ * |      |     |SELLINE| CUT  | COPY | PASTE|                    |PageUp| Home |  Up  |  End | DEL  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      | RGUI | RALT | RSFT | RCTRL| COPY |-------.    ,-------|PageDo| Left | Down | Right|      |      |
+ * |      | RGUI | RALT | RSFT | RCTRL| SAVE |-------.    ,-------|PageDo| Left | Down | Right|      |      |
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |CpsLck|      |      | SAVE |  CUT | UNDO |-------|    |-------|      |      |      |      |      |CpsLck|
+ * |CpsLck|      |      |     |SELLINE| UNDO |-------|    |-------|      |      |      |      |      |CpsLck|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                 | LAlt | LGUI |MOVEMENT| /BackSP/        \Enter \  | SYMBOLS | ACCENT | DEL |
  *                 |      |      | space  |/      /          \      \ |  space  |        |     |
@@ -92,20 +97,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_MOVEMENT] = LAYOUT( \
   _______, _______, _______, _______, _______, _______,                     _______,   _______, _______, _______, _______, _______, \
-  _______, _______, _______, KC_BSPC,  PASTE ,  KC_DEL,                     KC_PGUP,   KC_HOME,  KC_UP , KC_END, _______, _______, \
-  _______, KC_RGUI, KC_RALT, KC_RSFT, KC_RCTRL, COPY  ,                     KC_PGDOWN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, \
-  KC_CAPS, _______, _______,   SAVE ,   CUT  ,  UNDO  ,  _______, _______,  _______,   _______, _______,  _______, _______, _______, \
+  _______, _______, DELLINE,     CUT,    COPY,   PASTE,                     KC_PGUP,   KC_HOME,  KC_UP , KC_END, KC_DEL, _______, \
+  _______, KC_RGUI, KC_RALT, KC_RSFT, KC_RCTRL,   SAVE,                     KC_PGDOWN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, \
+  KC_CAPS, _______, _______,_______,   SELLINE,   UNDO,  _______, _______,  _______,   _______, _______,  _______, _______, _______, \
                              _______, _______, _______,  _______, _______,  _______,   _______, _______ \
 ),
 /* FUNCTIONS                                                            Mouse Wheel
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                    |      |      |   ü  |      |      |      |
+ * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                    |      |   ü  |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |  F6  |  F7  |  F8  |  F9  |  F10 |-------.    ,-------|      |  Up  |CTRL+F12|ALT+F4|     |      |
+ * |      |  F6  |  F7  |  F8  |  F9  |  F10 |-------.    ,-------|      |CTRL+F5|CTRL+F12|ALT+F4|    |      |
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |      |      |      |      |  F11 |  F12 |-------|    |-------|      | Down | LCTRL| RALT |      |      |
+ * |      | CTRL |  ALT | SHIFT|  F11 |  F12 |-------|    |-------|      |      | LCTRL| RALT |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                 | LAlt | LGUI |MOVEMENT| /BackSP/        \Enter \  | SYMBOLS | ACCENT | DEL |
  *                 |      |      | space  |/      /          \      \ |  space  |        |     |
@@ -115,9 +120,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FUNCTIONS] = LAYOUT( \
   _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,\
   _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                   _______,   DIE_U, _______, _______, _______, _______, \
-  _______,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,                   _______, _______,  DEF_VS, CLOSE , _______, _______, \
-  KC_CAPS, KC_LCTRL, KC_RALT, KC_LSFT,  KC_F11,  KC_F12, _______,  UC_MOD, _______, _______, KC_LCTRL, KC_RALT, _______, _______, \
+  _______,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,                   _______, RELOAD,  DEF_VS, CLOSE , _______, _______, \
+  KC_CAPS, KC_LCTRL, KC_RALT, KC_LSFT,  KC_F11,  KC_F12, _______,  _______, _______, KC_LCTRL, KC_RALT, KC_LSFT, _______, _______, \
                              _______, _______, _______, _______, _______, _______, _______, _______\
+),
+/* NUMBERS                                                            Mouse Wheel
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |      |   /  |   7  |   8  |   9  |  -   |                    |   /  |   7  |   8  |   9  |   +  |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |      |   *  |   4  |   5  |   6  |  +   |-------.    ,-------|   *  |   4  |   5  |   6  |   -  |      |
+ * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
+ * |      |      |   1  |   2  |   3  |  ,   |-------|    |-------|      |   1  |   2  |   3   |     |      |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                 | LAlt | LGUI |    0   | /Enter /        \Enter \  | SYMBOLS | ACCENT | DEL |
+ *                 |      |      |        |/      /          \      \ |  space  |        |     |
+ *                  `----------------------------'            '--------------------------------'
+ */
+
+[_NUMBERS] = LAYOUT( \
+  _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______,\
+  _______,KC_BSLASH,    KC_7,   KC_8,   KC_9,  KC_MINS,                   KC_BSLASH, KC_7,   KC_8,   KC_9, KC_MINS, _______, \
+  _______,  KC_ASTR,    KC_4,   KC_5,   KC_6,  KC_PLUS,                   KC_ASTR, KC_4,   KC_5,   KC_6, KC_PLUS, _______, \
+  _______, _______,     KC_1,   KC_2,   KC_3,  KC_COMM, _______,  _______,_______, KC_1,   KC_2,   KC_3, KC_COMM, _______, \
+                             _______,  _______,  KC_0, KC_ENT, _______,  KC_ENT,  KC_0, _______\
 ),
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -137,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX ,XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  UC_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
                              _______, _______, _______, _______, _______,  _______, _______, _______ \
   )
 };
@@ -306,6 +333,9 @@ void render_default_layer_state(void) {
         case _FUNCTIONS:
             oled_write_ln_P(PSTR("FUNC"), false);
             break;
+        case _NUMBERS:
+            oled_write_ln_P(PSTR("NUM"), false);
+            break;
         case _ADJUST:
             oled_write_ln_P(PSTR("ADJUST"), false);
             break;
@@ -360,7 +390,8 @@ void oled_task_user(void) {
 bool send_accent_unicode_string(const char *string, const char *capitalizeString)
 {
     if (tilde_pulsado) {
-        if (get_mods() & MOD_MASK_SHIFT) {
+        //TODO: comprobar que el bloqueo mayusculas está activado
+        if ((get_mods() & MOD_MASK_SHIFT) || host_keyboard_led_state().caps_lock) {
             send_unicode_string(capitalizeString);
         }
         else {
@@ -412,6 +443,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         tilde_pulsado = false;
         return false;
         break;
+    case SELLINE:  // Selects the current line.
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_HOME) SS_TAP(X_HOME) SS_LSFT(SS_TAP(X_END)));
+            // Mac users, use:
+            // SEND_STRING(SS_LCTL("a" SS_LSFT("e")));
+        }
+        return false;
+    case DELLINE:  // Selects the current line.
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_HOME) SS_TAP(X_HOME) SS_LSFT(SS_TAP(X_END)) SS_TAP(X_BSPC) SS_TAP(X_BSPC));
+            // Mac users, use:
+            // SEND_STRING(SS_LCTL("a" SS_LSFT("e")));
+        }
+        return false;
+        
     case KC_A:
         return send_accent_unicode_string("á", "Á");
         break;
