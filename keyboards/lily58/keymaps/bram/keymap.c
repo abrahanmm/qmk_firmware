@@ -450,7 +450,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // SEND_STRING(SS_LCTL("a" SS_LSFT("e")));
         }
         return false;
-    case DELLINE:  // Selects the current line.
+    case DELLINE:  // Delete the current line.
         if (record->event.pressed) {
             SEND_STRING(SS_TAP(X_HOME) SS_TAP(X_HOME) SS_LSFT(SS_TAP(X_END)) SS_TAP(X_DEL) SS_TAP(X_DEL));
             // Mac users, use:
